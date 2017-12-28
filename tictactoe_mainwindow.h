@@ -18,6 +18,18 @@ class TicTacToe_MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    struct Position
+    {
+        Position( const int &x = -1, const int &y = -1 )
+        : x{ x }
+        , y{ y }
+        {
+        }
+
+        int x;
+        int y;
+    };
+
     explicit TicTacToe_MainWindow(
             const QVector<Spielfigur*> &spielfiguren,
             QWidget *parent = nullptr );
@@ -27,9 +39,11 @@ public:
     void addButton( QPushButton *button, uint x, uint y );
     void moveTo( const uint &x, const uint &y );
     void computerMove();
+    int nextBlockPosition( const uint &aktuellerSpielerIndex ) const;
 
 private:
     uint getFieldIndex( const uint &x, const uint &y ) const;
+    Position getFieldCoordinate( const uint &index ) const;
     void checkWinner();
 
     Ui::TicTacToe_MainWindow *ui;
